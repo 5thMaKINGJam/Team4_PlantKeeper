@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] int vitaminMinBound;
     [SerializeField] int vitaminMaxBound;
 
+    [Header("Settings - Decrease/Increase Amount Per Second (Absolute Value)")]
+    [SerializeField] int lifeDecreaseAmount;
+    [SerializeField] int growthIncreaseAmount;
+
+
     private void Awake()
     {
         if (_instance == null)
@@ -109,15 +114,15 @@ public class GameManager : MonoBehaviour
 
             if (!isWaterInBound)
             {
-                _instance.life.UpdateValue(-1);
+                _instance.life.UpdateValue(-lifeDecreaseAmount);
             }
             if (!isVitaminInBound)
             {
-                _instance.life.UpdateValue(-1);
+                _instance.life.UpdateValue(-lifeDecreaseAmount);
             }
             if (isWaterInBound && isVitaminInBound)
             {
-                _instance.growth.UpdateValue(1);
+                _instance.growth.UpdateValue(growthIncreaseAmount);
             }
 
             _instance.checkExitCondition();
