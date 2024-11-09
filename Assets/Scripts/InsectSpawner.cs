@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class InsectSpawner : MonoBehaviour
@@ -8,6 +9,7 @@ public class InsectSpawner : MonoBehaviour
     public GameObject prefab;
     public GameObject insects;
     List<GameObject> pools;
+    bool[] isSpawn;
     float nextSpawnTime;
     float timer;
 
@@ -17,6 +19,11 @@ public class InsectSpawner : MonoBehaviour
         spawnPoint = GetComponentsInChildren<Transform>();
         timer = 0;
         nextSpawnTime = Random.Range(2.0f, 4.0f);
+        isSpawn = new bool[spawnPoint.Length];
+        for(int i=0;i<isSpawn.Length;i++)
+        {
+            isSpawn[i] = false;
+        }
     }
     private void Update()
     {
@@ -31,7 +38,14 @@ public class InsectSpawner : MonoBehaviour
     private void Spawn()
     {
         GameObject insect=Get();
-        insect.transform.position = spawnPoint[Random.Range(1,spawnPoint.Length)].position;
+        int index = Random.Range(1, spawnPoint.Length);
+        /*
+        while (!isSpawn[index]) {
+            index = Random.Range(1, spawnPoint.Length);
+        }
+        */
+        insect.transform.position = spawnPoint[index].position;
+        //isSpawn[index] = true;
     }
     public GameObject Get()
     {
