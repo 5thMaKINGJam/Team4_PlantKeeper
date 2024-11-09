@@ -1475,6 +1475,8 @@ MonoBehaviour:
   initialVitamin: 50
   vitaminMinBound: 40
   vitaminMaxBound: 60
+  lifeDecreaseAmount: 1
+  growthIncreaseAmount: 1
 --- !u!4 &637830731
 Transform:
   m_ObjectHideFlags: 0
