@@ -7,6 +7,10 @@ public class LeafControlSystem : MonoBehaviour
     [SerializeField] private GameObject leafControlPanel;
     [SerializeField] private Transform sunBar;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip panelToggleSound;
+
     [Header("Sprite References")]
     [SerializeField] private SpriteRenderer leafRenderer;
     [SerializeField] private Sprite shadeLeafSprite;
@@ -47,10 +51,14 @@ public class LeafControlSystem : MonoBehaviour
             Debug.LogWarning("PlayerMove 스크립트를 찾을 수 없습니다.");
         }
 
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         leafRenderer.sprite = shadeLeafSprite;
         sunMoveSpeed = (moveRange * 2) / 15f;
         
-        // 게임 시작 시 DryTimer 시작
         StartCoroutine(CheckDryStatus());
     }
 
@@ -112,6 +120,12 @@ public class LeafControlSystem : MonoBehaviour
         isControlActive = !isControlActive;
         isAnyPanelActive = isControlActive;
         leafControlPanel.SetActive(isControlActive);
+
+        // 효과음 재생
+        if (audioSource != null && panelToggleSound != null)
+        {
+            audioSource.PlayOneShot(panelToggleSound);
+        }
 
         if (isControlActive)
         {
