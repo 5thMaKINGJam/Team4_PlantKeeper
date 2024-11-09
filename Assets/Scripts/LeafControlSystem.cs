@@ -50,8 +50,6 @@ public class LeafControlSystem : MonoBehaviour
 
         leafRenderer.sprite = shadeLeafSprite;
         sunMoveSpeed = (moveRange * 2) / 15f;
-
-        SetLeafControlPanelPosition(currentLeafIndex);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -109,7 +107,6 @@ private void OnTriggerExit2D(Collider2D other)
     isControlActive = !isControlActive;
     leafControlPanel.SetActive(isControlActive);
     
-    // UI 위치 설정 (Canvas 내에서의 중앙 위치)
     if (isControlActive)
     {
         RectTransform panelRect = leafControlPanel.GetComponent<RectTransform>();
@@ -119,26 +116,10 @@ private void OnTriggerExit2D(Collider2D other)
         }
     }
 
-    // 기존 코드 주석 처리
-    //SetLeafControlPanelPosition(currentLeafIndex);
-
     if (!isControlActive && playerMove != null)
     {
         playerMove.enabled = true;
     }
-}
-
-private void SetLeafControlPanelPosition(int leafIndex)
-{
-    // 기존 코드 주석 처리
-    /*
-    if (leafIndex >= 0 && leafIndex < leafPositions.Length)
-    {
-        Vector3 leafPosition = leafPositions[leafIndex].position;
-        Vector3 panelPosition = leafPosition + new Vector3(1f, 0f, 0f);
-        leafControlPanel.transform.position = panelPosition;
-    }
-    */
 }
 
     private void MoveLeafBar()
