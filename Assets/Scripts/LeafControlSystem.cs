@@ -19,9 +19,7 @@ public class LeafControlSystem : MonoBehaviour
     [SerializeField] private float leafMoveSpeed = 200f;
 
     [Header("Leaf Settings")]
-    [SerializeField] private Transform[] leafPositions;
-    [SerializeField] private Transform[] leafBars;
-    private int currentLeafIndex = 0;
+    [SerializeField] private Transform leafBar; // 단일 잎사귀 바
 
     private bool isControlActive = false;
     private bool isMovingRight = true;
@@ -53,25 +51,24 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-{
-    if (other.gameObject.name == "player1")
     {
-        isPlayerInRange = true;
-    }
-}
-
-private void OnTriggerExit2D(Collider2D other)
-{
-    if (other.gameObject.name == "player1")
-    {
-        isPlayerInRange = false;
-        if (isControlActive)
+        if (other.gameObject.name == "player1")
         {
-            ToggleControlPanel();
+            isPlayerInRange = true;
         }
     }
-}
 
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.name == "player1")
+        {
+            isPlayerInRange = false;
+            if (isControlActive)
+            {
+                ToggleControlPanel();
+            }
+        }
+    }
 
     private void Update()
     {
@@ -102,37 +99,52 @@ private void OnTriggerExit2D(Collider2D other)
         UpdateLeafState();
     }
 
-   private void ToggleControlPanel()
-{
-    isControlActive = !isControlActive;
-    leafControlPanel.SetActive(isControlActive);
-    
-    if (isControlActive)
+    private void ToggleControlPanel()
     {
-        RectTransform panelRect = leafControlPanel.GetComponent<RectTransform>();
-        if (panelRect != null)
+        isControlActive = !isControlActive;
+        leafControlPanel.SetActive(isControlActive);
+
+        if (isControlActive)
         {
-            panelRect.anchoredPosition = Vector2.zero; // Canvas의 중앙에 위치
+            RectTransform panelRect = leafControlPanel.GetComponent<RectTransform>();
+            if (panelRect != null)
+            {
+                panelRect.anchoredPosition = Vector2.zero; // Canvas의 중앙에 위치
+            }
+        }
+
+        if (!isControlActive && playerMove != null)
+        {
+            playerMove.enabled = true;
         }
     }
 
-    if (!isControlActive && playerMove != null)
-    {
-        playerMove.enabled = true;
-    }
-}
-
     private void MoveLeafBar()
     {
+        Debug.Log("moveleafbar called");
         float moveInput = 0f;
-        if (Input.GetKey(KeyCode.A)) moveInput = -1f;
-        if (Input.GetKey(KeyCode.D)) moveInput = 1f;
+        if (Input.GetKey(KeyCode.A)) 
+        {
+            moveInput = -1f;
+            Debug.Log("AAAAA");
+        }
+        if (Input.GetKey(KeyCode.D)) 
+        {
+            moveInput = 1f;
+            Debug.Log("BBBBB");
+        }
 
-        Vector3 position = leafBars[currentLeafIndex].position;
+        if (leafBar == null)
+        {
+            Debug.LogError("leafBar가 null입니다. 인스펙터에서 설정해 주세요.");
+            return;
+        }
+
+        Vector3 position = leafBar.position;
         position.x += moveInput * leafMoveSpeed * Time.deltaTime;
         position.x = Mathf.Clamp(position.x, startX - moveRange, startX + moveRange);
 
-        leafBars[currentLeafIndex].position = position;
+        leafBar.position = position;
     }
 
     private void MoveSunBar()
@@ -157,13 +169,13 @@ private void OnTriggerExit2D(Collider2D other)
 
     private void CheckSunlightStatus()
     {
-        if (currentLeafIndex < 0 || currentLeafIndex >= leafBars.Length)
+        if (leafBar == null)
         {
-            Debug.LogWarning("currentLeafIndex가 leafBars 배열의 범위를 벗어났습니다.");
+            Debug.LogError("leafBar가 null입니다.");
             return;
         }
 
-        float distance = Mathf.Abs(leafBars[currentLeafIndex].position.x - sunBar.position.x);
+        float distance = Mathf.Abs(leafBar.position.x - sunBar.position.x);
         bool currentlyInSunlight = distance < 30f;
 
         if (currentlyInSunlight != isInSunlight)
