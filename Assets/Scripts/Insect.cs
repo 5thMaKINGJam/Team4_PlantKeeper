@@ -6,18 +6,28 @@ public class Insect : MonoBehaviour
 {
     int insectLevel;
     float timer;
+    float audioTimer;
+    bool isKill;
     SpriteRenderer spriter;
+    AudioSource audioPlayer;
+    public AudioClip[] clips;
     public Sprite[] sprites;
 
     private void Awake()
     {
         spriter = GetComponent<SpriteRenderer>();
+        audioPlayer = GetComponent<AudioSource>();
     }
     void Init()
     {
         insectLevel = 0;
         timer = 0f;
+        audioTimer = 0f;
         spriter.sprite = sprites[0];
+        spriter.enabled = true;
+        isKill= false;
+        audioPlayer.clip= clips[0];
+        audioPlayer.loop = false;
     }
 
     private void OnEnable()
@@ -27,6 +37,13 @@ public class Insect : MonoBehaviour
 
     private void Update()
     {
+        audioTimer += Time.deltaTime;
+        if (audioTimer > 1.0f&&insectLevel!=2&&spriter.enabled)
+        {
+            audioPlayer.Play();
+            audioTimer = 0;
+        }
+
         timer += Time.deltaTime;
         if (insectLevel==0&&timer > 4.0f)
         {
@@ -39,10 +56,23 @@ public class Insect : MonoBehaviour
             insectLevel++;
             spriter.sprite = sprites[2];
             timer = 0;
+            audioPlayer.clip = clips[1];
+            audioPlayer.loop = false;
+            audioPlayer.Play();
+
         }
         if (insectLevel == 2 && timer > 1.0f)
         {
             Die();
+        }
+
+        if (Input.GetKeyDown(KeyCode.RightShift) && isKill && insectLevel != 2)
+        {
+            audioPlayer.clip = clips[2];
+            audioPlayer.loop = false;
+            audioPlayer.Play();
+            spriter.enabled = false;
+            Invoke("Kill",1);
         }
     }
 
@@ -52,23 +82,28 @@ public class Insect : MonoBehaviour
         GameManager.DecreaseLife(8);
     }
 
-    void Kill()
+    public void Kill()
     {
+        audioPlayer.clip = clips[2];
+        audioPlayer.loop = false;
+        audioPlayer.Play();
+        spriter.enabled = false;
+
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerMove>().playerId == 1)
         {
-            if (collision.gameObject.GetComponent<PlayerMove>().playerId == 0)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftShift)) Kill();
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.RightShift)) Kill();
-            }
+            isKill = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<PlayerMove>().playerId == 1)
+        {
+            isKill = false;
         }
     }
 }
