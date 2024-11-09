@@ -277,7 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 36137654}
   - component: {fileID: 36137655}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -578,13 +578,10 @@ MonoBehaviour:
   sunlightLeafSprite: {fileID: 21300000, guid: e418f11cea3c6424aa9a4a3c45a18ac3, type: 3}
   dryLeafSprite: {fileID: 21300000, guid: c0bebb550e6267a4fa587dbd630fc99c, type: 3}
   moveRange: 150
+  sunlightThreshold: 30
   leafMoveSpeed: 200
-  leafPositions:
-  - {fileID: 439833209}
-  - {fileID: 1541118708}
-  - {fileID: 440895801}
-  - {fileID: 1109941724}
-  leafBars: []
+  panelOffset: {x: 1, y: 0, z: 0}
+  leafBar: {fileID: 0}
 --- !u!212 &439833208
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -742,13 +739,10 @@ MonoBehaviour:
   sunlightLeafSprite: {fileID: 21300000, guid: e418f11cea3c6424aa9a4a3c45a18ac3, type: 3}
   dryLeafSprite: {fileID: 21300000, guid: c0bebb550e6267a4fa587dbd630fc99c, type: 3}
   moveRange: 150
+  sunlightThreshold: 30
   leafMoveSpeed: 200
-  leafPositions:
-  - {fileID: 439833209}
-  - {fileID: 1541118708}
-  - {fileID: 440895801}
-  - {fileID: 1109941724}
-  leafBars: []
+  panelOffset: {x: 1, y: 0, z: 0}
+  leafBar: {fileID: 0}
 --- !u!212 &440895800
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -826,7 +820,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476803357}
   - component: {fileID: 476803358}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -884,7 +878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 482629826}
   - component: {fileID: 482629827}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1065,7 +1059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 588927427}
   - component: {fileID: 588927428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (11)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1126,7 +1120,7 @@ GameObject:
   - component: {fileID: 589600201}
   - component: {fileID: 589600200}
   - component: {fileID: 589600199}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,7 +1444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734443392}
   - component: {fileID: 734443393}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1638,13 +1632,10 @@ MonoBehaviour:
   sunlightLeafSprite: {fileID: 21300000, guid: e418f11cea3c6424aa9a4a3c45a18ac3, type: 3}
   dryLeafSprite: {fileID: 21300000, guid: c0bebb550e6267a4fa587dbd630fc99c, type: 3}
   moveRange: 150
+  sunlightThreshold: 30
   leafMoveSpeed: 200
-  leafPositions:
-  - {fileID: 439833209}
-  - {fileID: 1541118708}
-  - {fileID: 440895801}
-  - {fileID: 1109941724}
-  leafBars: []
+  panelOffset: {x: 1, y: 0, z: 0}
+  leafBar: {fileID: 0}
 --- !u!212 &1109941723
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1859,9 +1850,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 1
-  maxSpeed: 5
-  jumpPower: 15
-  isGround: 1
 --- !u!1 &1133028677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1872,7 +1860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1133028678}
   - component: {fileID: 1133028679}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2067,9 +2055,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
-  maxSpeed: 5
-  jumpPower: 15
-  isGround: 1
 --- !u!1001 &1267623061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2307,7 +2292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1496789561}
   - component: {fileID: 1496789562}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2443,7 +2428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1520658857}
   - component: {fileID: 1520658858}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2555,13 +2540,10 @@ MonoBehaviour:
   sunlightLeafSprite: {fileID: 21300000, guid: e418f11cea3c6424aa9a4a3c45a18ac3, type: 3}
   dryLeafSprite: {fileID: 21300000, guid: c0bebb550e6267a4fa587dbd630fc99c, type: 3}
   moveRange: 150
+  sunlightThreshold: 30
   leafMoveSpeed: 200
-  leafPositions:
-  - {fileID: 439833209}
-  - {fileID: 1541118708}
-  - {fileID: 440895801}
-  - {fileID: 1109941724}
-  leafBars: []
+  panelOffset: {x: 1, y: 0, z: 0}
+  leafBar: {fileID: 0}
 --- !u!212 &1541118707
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2639,7 +2621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1563315567}
   - component: {fileID: 1563315568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2697,7 +2679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1618779713}
   - component: {fileID: 1618779714}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2755,7 +2737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725476180}
   - component: {fileID: 1725476181}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -2850,7 +2832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826803851}
   - component: {fileID: 1826803852}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject (6)
   m_TagString: Ground
   m_Icon: {fileID: 0}
