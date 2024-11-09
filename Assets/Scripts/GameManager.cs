@@ -88,6 +88,16 @@ public class GameManager : MonoBehaviour
         _instance.checkExitCondition();
     }
 
+    public static void IncreaseWater(int x)
+    {
+        _instance.water.UpdateValue(x);
+    }
+
+    public static void IncreaseVitamin(int x)
+    {
+        _instance.vitamin.UpdateValue(x);
+    }
+
     private void checkExitCondition()
     {
         if (_instance.growth.GetValue() == maxGrowth)
