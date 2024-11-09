@@ -350,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 9053906258748943569, guid: c98c795750bbbb549a0c543152e6d615, type: 3}
       propertyPath: sunBar
       value: 
-      objectReference: {fileID: 1416371356}
+      objectReference: {fileID: 635038723}
     - target: {fileID: 9053906258748943569, guid: c98c795750bbbb549a0c543152e6d615, type: 3}
       propertyPath: leafBar
       value: 
@@ -1735,6 +1735,11 @@ RectTransform:
 --- !u!1 &635038722 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4082072313958785473, guid: 79e57281a31f87b4290fe905bf072a64, type: 3}
+  m_PrefabInstance: {fileID: 635038720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &635038723 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4082072312768919742, guid: 79e57281a31f87b4290fe905bf072a64, type: 3}
   m_PrefabInstance: {fileID: 635038720}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &637830729
