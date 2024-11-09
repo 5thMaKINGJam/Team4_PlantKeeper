@@ -9,7 +9,7 @@ public class InsectSpawner : MonoBehaviour
     public GameObject prefab;
     public GameObject insects;
     List<GameObject> pools;
-    bool[] isSpawn;
+    public bool[] isSpawn;
     float nextSpawnTime;
     float timer;
 
@@ -39,13 +39,15 @@ public class InsectSpawner : MonoBehaviour
     {
         GameObject insect=Get();
         int index = Random.Range(1, spawnPoint.Length);
-        /*
-        while (!isSpawn[index]) {
+        int count = 0;
+        while (isSpawn[index]&&count<10) {
             index = Random.Range(1, spawnPoint.Length);
+            count++;
         }
-        */
         insect.transform.position = spawnPoint[index].position;
-        //isSpawn[index] = true;
+        isSpawn[index] = true;
+        insect.GetComponent<Insect>().index = index;
+        insect.GetComponent<Insect>().insectSpawner = gameObject;
     }
     public GameObject Get()
     {

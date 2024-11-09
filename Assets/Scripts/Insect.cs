@@ -14,6 +14,8 @@ public class Insect : MonoBehaviour
     public Sprite[] sprites;
     public float basicLevelTime;
     public float firstLevelTime;
+    public int index=0;
+    public GameObject insectSpawner;
 
     private void Awake()
     {
@@ -80,17 +82,14 @@ public class Insect : MonoBehaviour
 
     void Die()
     {
+        insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
         gameObject.SetActive(false);
         GameManager.DecreaseLife(8);
     }
 
     public void Kill()
     {
-        audioPlayer.clip = clips[2];
-        audioPlayer.loop = false;
-        audioPlayer.Play();
-        spriter.enabled = false;
-
+        insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
         gameObject.SetActive(false);
     }
 
