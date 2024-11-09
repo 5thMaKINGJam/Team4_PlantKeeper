@@ -969,6 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886418104}
   - component: {fileID: 886418103}
+  - component: {fileID: 886418105}
   m_Layer: 0
   m_Name: Leaf
   m_TagString: Untagged
@@ -1043,6 +1044,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &886418105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886418102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9b84796d48a274690f45da96859651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leafControlPanel: {fileID: 1328135448}
+  sunBar: {fileID: 1450518076}
+  leafBar: {fileID: 980003242}
+  leafRenderer: {fileID: 886418103}
+  normalLeafSprite: {fileID: 21300000, guid: 087b40008459b4d448dcd0406dbfe9ac, type: 3}
+  sunlightLeafSprite: {fileID: 21300000, guid: e418f11cea3c6424aa9a4a3c45a18ac3, type: 3}
+  shadeLeafSprite: {fileID: 21300000, guid: c0bebb550e6267a4fa587dbd630fc99c, type: 3}
+  moveRange: 150
+  leafMoveSpeed: 200
 --- !u!1 &980003241
 GameObject:
   m_ObjectHideFlags: 0
