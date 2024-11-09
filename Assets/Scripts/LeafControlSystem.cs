@@ -21,7 +21,7 @@ public class LeafControlSystem : MonoBehaviour
     [Header("Leaf Settings")]
     [SerializeField] private Transform leafBar;
 
-    private static bool isAnyPanelActive = false; // 전역 상태 관리
+    private static bool isAnyPanelActive = false;
     private bool isControlActive = false;
     private bool isMovingRight = true;
     private float startX;
@@ -49,6 +49,9 @@ public class LeafControlSystem : MonoBehaviour
 
         leafRenderer.sprite = shadeLeafSprite;
         sunMoveSpeed = (moveRange * 2) / 15f;
+        
+        // 게임 시작 시 DryTimer 시작
+        StartCoroutine(CheckDryStatus());
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -107,7 +110,7 @@ public class LeafControlSystem : MonoBehaviour
     private void ToggleControlPanel()
     {
         isControlActive = !isControlActive;
-        isAnyPanelActive = isControlActive; // 전역 상태 업데이트
+        isAnyPanelActive = isControlActive;
         leafControlPanel.SetActive(isControlActive);
 
         if (isControlActive)
@@ -115,7 +118,7 @@ public class LeafControlSystem : MonoBehaviour
             RectTransform panelRect = leafControlPanel.GetComponent<RectTransform>();
             if (panelRect != null)
             {
-                panelRect.anchoredPosition = Vector2.zero; // Canvas의 중앙에 위치
+                panelRect.anchoredPosition = Vector2.zero;
             }
         }
     }
@@ -182,53 +185,30 @@ public class LeafControlSystem : MonoBehaviour
         if (currentlyInSunlight != isInSunlight)
         {
             isInSunlight = currentlyInSunlight;
-            UpdateLeafSprite();
-            sunlightTimer = 0f;
-            dryTimer = 0f;
-
+            
             StopAllCoroutines();
             if (isInSunlight)
             {
+                leafRenderer.sprite = sunlightLeafSprite;
                 StartCoroutine(IncreasePlantGrowth());
             }
-        }
-    }
-
-    private void UpdateLeafSprite()
-    {
-        if (isInSunlight)
-        {
-            leafRenderer.sprite = sunlightLeafSprite;
-        }
-        else
-        {
-            leafRenderer.sprite = shadeLeafSprite;
-            StartCoroutine(CheckDryStatus());
+            else
+            {
+                leafRenderer.sprite = shadeLeafSprite;
+                StartCoroutine(CheckDryStatus());
+            }
         }
     }
 
     private void UpdateLeafState()
     {
-        if (!isInSunlight)
-        {
-            dryTimer += Time.deltaTime;
-            if (dryTimer >= 4f && leafRenderer.sprite != dryLeafSprite)
-            {
-                leafRenderer.sprite = dryLeafSprite;
-                StartCoroutine(DecreasePlantLife());
-            }
-        }
-        else
-        {
-            dryTimer = 0f;
-            StopCoroutine(DecreasePlantLife());
-        }
     }
 
     private IEnumerator CheckDryStatus()
     {
         yield return new WaitForSeconds(4f);
-        if (!isInSunlight)
+        
+        if (!isInSunlight && leafRenderer.sprite == shadeLeafSprite)
         {
             leafRenderer.sprite = dryLeafSprite;
             StartCoroutine(DecreasePlantLife());
@@ -246,7 +226,7 @@ public class LeafControlSystem : MonoBehaviour
 
     private IEnumerator DecreasePlantLife()
     {
-        while (!isInSunlight)
+        while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
         {
             GameManager.DecreaseLife(1);
             yield return new WaitForSeconds(1f);
