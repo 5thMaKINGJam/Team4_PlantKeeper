@@ -15,8 +15,6 @@ public class BarState
         this.maxValue = maxValue;
         this.bar = bar;
         UpdateValue(initialValue);
-
-        Debug.Log($"{bar} {value} {maxValue}");
     }
 
 
@@ -51,7 +49,6 @@ public class BoundedBarState : BarState
     {
         this.minBound = minBound;
         this.maxBound = maxBound;
-        Debug.Log($">> {bar} {initialValue} {maxValue} {this.minBound} {this.maxBound}");
     }
 
     public bool isInBound()
