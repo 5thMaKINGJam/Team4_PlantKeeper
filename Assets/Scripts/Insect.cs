@@ -12,6 +12,8 @@ public class Insect : MonoBehaviour
     AudioSource audioPlayer;
     public AudioClip[] clips;
     public Sprite[] sprites;
+    public float basicLevelTime;
+    public float firstLevelTime;
 
     private void Awake()
     {
@@ -38,20 +40,20 @@ public class Insect : MonoBehaviour
     private void Update()
     {
         audioTimer += Time.deltaTime;
-        if (audioTimer > 1.0f&&insectLevel!=2&&spriter.enabled)
+        if (audioTimer > 1.0f&&insectLevel==1&&spriter.enabled)
         {
             audioPlayer.Play();
             audioTimer = 0;
         }
 
         timer += Time.deltaTime;
-        if (insectLevel==0&&timer > 4.0f)
+        if (insectLevel==0&&timer > basicLevelTime)
         {
             insectLevel++;
             spriter.sprite = sprites[1];
             timer = 0;
         }
-        if (insectLevel == 1 && timer > 2.0f)
+        if (insectLevel == 1 && timer > firstLevelTime)
         {
             insectLevel++;
             spriter.sprite = sprites[2];
