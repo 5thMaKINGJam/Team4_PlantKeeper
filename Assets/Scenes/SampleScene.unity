@@ -1461,8 +1461,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeBar: {fileID: 1783925315}
   growthBar: {fileID: 1783925314}
-  lifeNum: 0
-  growthNum: 0
+  waterBar: {fileID: 1783925317}
+  vitaminBar: {fileID: 1783925316}
+  maxLife: 100
+  initial_life: 100
+  maxGrowth: 500
+  initialGrowth: 0
+  maxWater: 100
+  initialWater: 70
+  waterMinBound: 60
+  waterMaxBound: 80
+  maxVitamin: 100
+  initialVitamin: 50
+  vitaminMinBound: 40
+  vitaminMaxBound: 60
 --- !u!4 &637830731
 Transform:
   m_ObjectHideFlags: 0
@@ -2600,6 +2612,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 359788192576986595, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 160.2646
+      objectReference: {fileID: 0}
+    - target: {fileID: 359788192576986595, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 160.13232
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139784865331381581, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139784865331381583, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Name
+      value: VitaminSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943070520187359340, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Name
+      value: LifeSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943070521555823368, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Name
+      value: GrowthSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451091055415484827, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814146290836145310, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5254966838792269459, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
       propertyPath: m_Name
       value: PlayUI
@@ -2688,6 +2732,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7132190839822704712, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132190839822704714, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Name
+      value: WaterSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626226910677350630, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 160.0478
+      objectReference: {fileID: 0}
+    - target: {fileID: 7626226910677350630, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.0761
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
 --- !u!114 &1783925314 stripped
@@ -2704,6 +2764,28 @@ MonoBehaviour:
 --- !u!114 &1783925315 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2943070520187359342, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+  m_PrefabInstance: {fileID: 1783925313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1783925316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1139784865331381581, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+  m_PrefabInstance: {fileID: 1783925313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1783925317 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7132190839822704712, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
   m_PrefabInstance: {fileID: 1783925313}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

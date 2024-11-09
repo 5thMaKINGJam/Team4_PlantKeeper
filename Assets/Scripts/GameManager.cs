@@ -9,16 +9,41 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance = null;
 
-    [SerializeField] Image lifeBar; // bar prefab 내 Cover
-    [SerializeField] Image growthBar;
-
     private AudioSource lifeDecreasingSound;
 
-    [SerializeField] private int lifeNum;
-    [SerializeField] private int growthNum;
+    [Header("Bar > Background > Slider")]
+    [SerializeField] Image lifeBar; // bar prefab 내 Cover
+    [SerializeField] Image growthBar;
+    [SerializeField] Image waterBar;
+    [SerializeField] Image vitaminBar;
 
-    const int MAX_LIFE = 100;
-    const int MAX_GROWTH = 500;
+    private BarState life;
+    private BarState growth;
+    private BoundedBarState water;
+    private BoundedBarState vitamin;
+
+    // Edit in Unity Editor //
+    // !!!!DO NOT INITIALIZE HERE!!!! //
+    [Header("Settings - Life")]
+    [SerializeField] int maxLife;
+    [SerializeField] int initial_life;
+
+    [Header("Settings - Growth")]
+    [SerializeField] int maxGrowth;
+    [SerializeField] int initialGrowth;
+
+    [Header("Settings - Water")]
+    [SerializeField] int maxWater;
+    [SerializeField] int initialWater;
+
+    [SerializeField] int waterMinBound;
+    [SerializeField] int waterMaxBound;
+
+    [Header("Settings - Vitamin")]
+    [SerializeField] int maxVitamin;
+    [SerializeField] int initialVitamin;
+    [SerializeField] int vitaminMinBound;
+    [SerializeField] int vitaminMaxBound;
 
     private void Awake()
     {
@@ -26,40 +51,78 @@ public class GameManager : MonoBehaviour
         {
             _instance = this;
         }
+        life = new BarState(initial_life, maxLife, lifeBar);
+        growth = new BarState(initialGrowth, maxGrowth, growthBar);
+        water = new BoundedBarState(initialWater, maxWater, waterBar, waterMinBound, waterMaxBound);
+        vitamin = new BoundedBarState(initialVitamin, maxVitamin, vitaminBar, vitaminMinBound, vitaminMaxBound);
 
-        _instance.growthNum = 0;
-        _instance.lifeNum = 100;
         _instance.lifeDecreasingSound = GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        // StartCoroutine(UpdateStateForEverySecond());
     }
 
     // Update is called once per frame
     void Update()
     {
-        _instance.lifeBar.fillAmount = 1 - ((float)_instance.lifeNum / MAX_LIFE);
-        _instance.growthBar.fillAmount = 1 - ((float)_instance.growthNum / MAX_GROWTH);
+
     }
 
     public static void DecreaseLife(int x)
     {
         _instance.lifeDecreasingSound.Play();
-        _instance.lifeNum -= x;
-        if (_instance.growthNum <= MAX_GROWTH && _instance.lifeNum <= 0)
+        _instance.life.UpdateValue(-x);
+        _instance.checkExitCondition();
+    }
+
+    public static void IncreaseGrowth(int x)
+    {
+        _instance.growth.UpdateValue(x);
+        _instance.checkExitCondition();
+    }
+
+    private void checkExitCondition()
+    {
+        if (_instance.growth.GetValue() == maxGrowth)
+        {
+            SceneManager.LoadScene("GameClear");
+        }
+        if (_instance.life.GetValue() == 0)
         {
             SceneManager.LoadScene("GameOver");
         }
     }
 
-    public static void IncreaseGrowth(int x)
+    IEnumerator UpdateStateForEverySecond()
     {
-        _instance.growthNum += x;
-        if (_instance.growthNum >= MAX_GROWTH)
+        while (true)
         {
-            SceneManager.LoadScene("GameClear");
+            // decrease water&vitamin by 1 for every second
+            _instance.water.UpdateValue(-1);
+            _instance.vitamin.UpdateValue(-1);
+
+            // update life & growth
+            bool isWaterInBound = _instance.water.isInBound();
+            bool isVitaminInBound = _instance.vitamin.isInBound();
+
+            if (!isWaterInBound)
+            {
+                _instance.life.UpdateValue(-1);
+            }
+            if (!isVitaminInBound)
+            {
+                _instance.life.UpdateValue(-1);
+            }
+            if (isWaterInBound && isVitaminInBound)
+            {
+                _instance.growth.UpdateValue(1);
+            }
+
+            _instance.checkExitCondition();
+
+            yield return new WaitForSeconds(1f);
         }
     }
 }
