@@ -49,7 +49,7 @@ public class Insect : MonoBehaviour
     void Die()
     {
         gameObject.SetActive(false);
-        //GameManager.DecreaseLife(8);
+        GameManager.DecreaseLife(8);
     }
 
     void Kill()
