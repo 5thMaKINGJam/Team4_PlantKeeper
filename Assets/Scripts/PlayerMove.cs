@@ -9,8 +9,10 @@ public class PlayerMove : MonoBehaviour
     public readonly float maxSpeed = 5;
     public readonly float jumpPower = 15;
     private bool isJumpPending = false;
+    public bool isKill = false;
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    GameObject insect;
 
     private KeyCode leftKey, rightKey, upKey;
 
@@ -36,6 +38,10 @@ public class PlayerMove : MonoBehaviour
                     isJumpPending = true;
                 }
             }
+        }
+        if(Input.GetKeyDown(KeyCode.RightArrow)&&isKill)
+        {
+            insect.GetComponent<Insect>().Kill();
         }
     }
 
@@ -71,5 +77,21 @@ public class PlayerMove : MonoBehaviour
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
     }
 
-
+    /*
+    private void OnCollisionEnter2D(Collider2D collision)
+    {
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Insect") && playerId == 1)
+        {
+            isKill = true;
+            insect = collision.gameObject;
+        }
+    }
+    void OnCollisionExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Insect") && playerId == 1)
+        {
+            isKill = false;
+        }
+    }*/
 }
