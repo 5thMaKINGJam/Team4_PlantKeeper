@@ -7,7 +7,7 @@ public class Insect : MonoBehaviour
     int insectLevel;
     float timer;
     SpriteRenderer spriter;
-    Sprite[] sprites;
+    public Sprite[] sprites;
 
     private void Awake()
     {
@@ -42,12 +42,33 @@ public class Insect : MonoBehaviour
         }
         if (insectLevel == 2 && timer > 1.0f)
         {
-
+            Die();
         }
     }
 
     void Die()
     {
         gameObject.SetActive(false);
+        //GameManager.DecreaseLife(8);
+    }
+
+    void Kill()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.gameObject.GetComponent<PlayerMove>().playerId == 0)
+            {
+                if (Input.GetKeyDown(KeyCode.LeftShift)) Kill();
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.RightShift)) Kill();
+            }
+        }
     }
 }
