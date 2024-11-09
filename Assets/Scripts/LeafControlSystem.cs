@@ -19,8 +19,9 @@ public class LeafControlSystem : MonoBehaviour
     [SerializeField] private float leafMoveSpeed = 200f;
 
     [Header("Leaf Settings")]
-    [SerializeField] private Transform leafBar; // 단일 잎사귀 바
+    [SerializeField] private Transform leafBar;
 
+    private static bool isAnyPanelActive = false; // 전역 상태 관리
     private bool isControlActive = false;
     private bool isMovingRight = true;
     private float startX;
@@ -79,13 +80,12 @@ public class LeafControlSystem : MonoBehaviour
             ToggleControlPanel();
         }
 
-        if (isControlActive)
+        if (isAnyPanelActive)
         {
             if (playerMove != null)
             {
                 playerMove.enabled = false;
             }
-            MoveLeafBar();
         }
         else
         {
@@ -95,6 +95,11 @@ public class LeafControlSystem : MonoBehaviour
             }
         }
 
+        if (isControlActive)
+        {
+            MoveLeafBar();
+        }
+
         CheckSunlightStatus();
         UpdateLeafState();
     }
@@ -102,6 +107,7 @@ public class LeafControlSystem : MonoBehaviour
     private void ToggleControlPanel()
     {
         isControlActive = !isControlActive;
+        isAnyPanelActive = isControlActive; // 전역 상태 업데이트
         leafControlPanel.SetActive(isControlActive);
 
         if (isControlActive)
@@ -112,23 +118,18 @@ public class LeafControlSystem : MonoBehaviour
                 panelRect.anchoredPosition = Vector2.zero; // Canvas의 중앙에 위치
             }
         }
-
-        if (!isControlActive && playerMove != null)
-        {
-            playerMove.enabled = true;
-        }
     }
 
     private void MoveLeafBar()
     {
         Debug.Log("moveleafbar called");
         float moveInput = 0f;
-        if (Input.GetKey(KeyCode.A)) 
+        if (Input.GetKey(KeyCode.A))
         {
             moveInput = -1f;
             Debug.Log("AAAAA");
         }
-        if (Input.GetKey(KeyCode.D)) 
+        if (Input.GetKey(KeyCode.D))
         {
             moveInput = 1f;
             Debug.Log("BBBBB");
