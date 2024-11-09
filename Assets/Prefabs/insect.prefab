@@ -108,6 +108,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 04f246ff37e49a24e80404bde1163de1, type: 3}
   - {fileID: 21300000, guid: 7f2582ffe2ebd0440ac28bde48e7a4b2, type: 3}
   - {fileID: 21300000, guid: fba7086df4986d9459f8fa0938ec399b, type: 3}
+  basicLevelTime: 4
+  firstLevelTime: 2
 --- !u!70 &-4310402040088351525
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
