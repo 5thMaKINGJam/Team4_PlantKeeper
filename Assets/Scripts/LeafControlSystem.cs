@@ -1,13 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class LeafControlSystem : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject leafControlPanel;
-    [SerializeField] private RectTransform sunBar;
-    [SerializeField] private RectTransform leafBar;
+    [SerializeField] private Transform sunBar;
+    [SerializeField] private Transform leafBar;
 
     [Header("Sprite References")]
     [SerializeField] private SpriteRenderer leafRenderer;
@@ -21,8 +20,8 @@ public class LeafControlSystem : MonoBehaviour
     [SerializeField] private float leafMoveSpeed = 200f;
 
     [Header("Leaf Positions")]
-    [SerializeField] private Transform[] leafPositions; // 각 잎사귀의 Transform을 배열로 설정
-    private int currentLeafIndex = 0; // 현재 활성화된 잎사귀 인덱스
+    [SerializeField] private Transform[] leafPositions;
+    private int currentLeafIndex = 0;
 
     private bool isControlActive = false;
     private bool isMovingRight = true;
@@ -39,13 +38,12 @@ public class LeafControlSystem : MonoBehaviour
     private void Start()
     {
         leafControlPanel.SetActive(false);
-        startX = sunBar.anchoredPosition.x;
+        startX = sunBar.position.x;
         player1 = GameObject.Find("player1");
 
         leafRenderer.sprite = shadeLeafSprite;
         sunMoveSpeed = (moveRange * 2) / 15f;
-
-        SetLeafControlPanelPosition(currentLeafIndex); // 첫 번째 잎사귀 앞에 패널 배치
+        SetLeafControlPanelPosition(currentLeafIndex);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -70,6 +68,10 @@ public class LeafControlSystem : MonoBehaviour
 
     private void Update()
     {
+        // 햇빛 영역은 항상 움직이도록 설정
+        MoveSunBar();
+        CheckSunlightStatus();
+
         CheckPlayerRange();
 
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.LeftShift))
@@ -77,16 +79,11 @@ public class LeafControlSystem : MonoBehaviour
             ToggleControlPanel();
         }
 
+        // LeafControlPanel이 활성화되었을 때만 잎사귀 막대를 움직일 수 있도록
         if (isControlActive)
         {
-            MoveSunBar();
             MoveLeafBar();
             UpdateLeafState();
-        }
-
-        if (!isControlActive && leafRenderer.sprite != shadeLeafSprite)
-        {
-            leafRenderer.sprite = shadeLeafSprite;
         }
     }
 
@@ -121,55 +118,52 @@ public class LeafControlSystem : MonoBehaviour
     {
         isControlActive = !isControlActive;
         leafControlPanel.SetActive(isControlActive);
-        SetLeafControlPanelPosition(currentLeafIndex); // 패널 위치 업데이트
+        SetLeafControlPanelPosition(currentLeafIndex);
     }
 
-    // LeafControlPanel의 위치를 설정하는 메서드
     private void SetLeafControlPanelPosition(int leafIndex)
     {
         if (leafIndex >= 0 && leafIndex < leafPositions.Length)
         {
             Vector3 leafPosition = leafPositions[leafIndex].position;
-            Vector3 panelPosition = leafPosition + new Vector3(1f, 0f, 0f); // X축 방향으로 1 단위 이동 (필요에 따라 조정)
+            Vector3 panelPosition = leafPosition + new Vector3(1f, 0f, 0f); // X축으로 1 단위 앞에 배치
             leafControlPanel.transform.position = panelPosition;
         }
     }
 
     private void UpdateLeafState()
     {
-        // 그늘 상태로 4초 경과 후 시든 상태로 변경
         if (!isInSunlight)
         {
             dryTimer += Time.deltaTime;
             if (dryTimer >= 4f)
             {
-                leafRenderer.sprite = dryLeafSprite; // 시든 상태로 변경
-                //TODO: DecreaseLifeOverTime(); // 생명력 감소 로직 호출
+                leafRenderer.sprite = dryLeafSprite;
+                GameManager.DecreaseLife(3); // 생명력 감소
             }
         }
         else
         {
-            dryTimer = 0f; // 타이머 초기화
+            dryTimer = 0f;
         }
 
-        // 햇빛 상태로 2초 경과 후 성장 증가
-        if (isInSunlight)
+        if (isInSunlight && leafRenderer.sprite == sunlightLeafSprite)
         {
             sunlightTimer += Time.deltaTime;
             if (sunlightTimer >= 2f)
             {
-                //TODO: IncreaseGrowthOverTime(); // 성장 증가 로직 호출
+                GameManager.IncreaseGrowth(1); // 성장 증가
             }
         }
         else
         {
-            sunlightTimer = 0f; // 타이머 초기화
+            sunlightTimer = 0f;
         }
     }
 
     private void MoveSunBar()
     {
-        Vector2 position = sunBar.anchoredPosition;
+        Vector3 position = sunBar.position;
 
         if (isMovingRight)
         {
@@ -184,7 +178,7 @@ public class LeafControlSystem : MonoBehaviour
                 isMovingRight = true;
         }
 
-        sunBar.anchoredPosition = position;
+        sunBar.position = position;
     }
 
     private void MoveLeafBar()
@@ -193,24 +187,22 @@ public class LeafControlSystem : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) moveInput = -1f;
         if (Input.GetKey(KeyCode.D)) moveInput = 1f;
 
-        Vector2 position = leafBar.anchoredPosition;
+        Vector3 position = leafBar.position;
         position.x += moveInput * leafMoveSpeed * Time.deltaTime;
         position.x = Mathf.Clamp(position.x, startX - moveRange, startX + moveRange);
 
-        leafBar.anchoredPosition = position;
+        leafBar.position = position;
     }
 
     private void CheckSunlightStatus()
     {
-        float distance = Mathf.Abs(leafBar.anchoredPosition.x - sunBar.anchoredPosition.x);
+        float distance = Mathf.Abs(leafBar.position.x - sunBar.position.x);
         bool currentlyInSunlight = distance < 30f;
 
         if (currentlyInSunlight != isInSunlight)
         {
             isInSunlight = currentlyInSunlight;
-
             leafRenderer.sprite = isInSunlight ? sunlightLeafSprite : dryLeafSprite;
-
             sunlightTimer = 0f;
             dryTimer = 0f;
 
@@ -245,8 +237,7 @@ public class LeafControlSystem : MonoBehaviour
     {
         while (isInSunlight)
         {
-            // TODO: GameManager의 성장 증가 함수 호출
-            // GameManager.Instance.increaseGrowth(1);
+            GameManager.IncreaseGrowth(1);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -255,8 +246,7 @@ public class LeafControlSystem : MonoBehaviour
     {
         while (!isInSunlight)
         {
-            // TODO: GameManager의 생명력 감소 함수 호출
-            // GameManager.Instance.decreaseLife(3);
+            GameManager.DecreaseLife(3);
             yield return new WaitForSeconds(1f);
         }
     }
