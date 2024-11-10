@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 732439541}
   - component: {fileID: 732439543}
   - component: {fileID: 732439542}
+  - component: {fileID: 732439544}
   m_Layer: 5
   m_Name: RankingPanel
   m_TagString: Untagged
@@ -363,6 +364,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732439540}
   m_CullTransparentMesh: 1
+--- !u!114 &732439544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732439540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b11c2eecaa4d5e488c3c4a871f556f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rankText:
+  - {fileID: 1982046298}
+  - {fileID: 38938186}
+  - {fileID: 1086227386}
+  - {fileID: 982686268}
+  - {fileID: 777735131}
+  - {fileID: 1807037302}
+  - {fileID: 1787959434}
+  - {fileID: 810848563}
+  - {fileID: 1050637959}
+  - {fileID: 984047680}
 --- !u!1 &777735129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,7 +1109,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1451328435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 732439544}
+        m_TargetAssemblyTypeName: ShowRanking, Assembly-CSharp
+        m_MethodName: CloseUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1451328435
 MonoBehaviour:
   m_ObjectHideFlags: 0
