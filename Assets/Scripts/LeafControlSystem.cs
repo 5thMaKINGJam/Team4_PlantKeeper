@@ -139,17 +139,17 @@ public class LeafControlSystem : MonoBehaviour
 
     private void MoveLeafBar()
     {
-        Debug.Log("moveleafbar called");
+        //Debug.Log("moveleafbar called");
         float moveInput = 0f;
         if (Input.GetKey(KeyCode.A))
         {
             moveInput = -1f;
-            Debug.Log("AAAAA");
+            //Debug.Log("AAAAA");
         }
         if (Input.GetKey(KeyCode.D))
         {
             moveInput = 1f;
-            Debug.Log("BBBBB");
+            //Debug.Log("BBBBB");
         }
 
         if (leafBar == null)
@@ -239,11 +239,17 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private IEnumerator DecreasePlantLife()
+{
+    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} started decreasing life");
+    
+    while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
     {
-        while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
-        {
-            GameManager.DecreaseLife(1);
-            yield return new WaitForSeconds(1f);
-        }
+        GameManager.DecreaseLife(3);
+        //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} decreased life by 3");
+        
+        yield return new WaitForSeconds(1f);
     }
+    
+    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} stopped decreasing life");
+}
 }
