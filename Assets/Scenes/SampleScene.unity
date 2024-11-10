@@ -1450,6 +1450,7 @@ MonoBehaviour:
   vitaminMaxBound: 60
   lifeDecreaseAmount: 1
   growthIncreaseAmount: 1
+  timeT: {fileID: 0}
 --- !u!4 &637830731
 Transform:
   m_ObjectHideFlags: 0
@@ -2686,6 +2687,22 @@ PrefabInstance:
       value: VitaminSlider
       objectReference: {fileID: 0}
     - target: {fileID: 1139784865966157726, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 049da717320a02542859ebc5e5423881, type: 3}
+    - target: {fileID: 1139784865966157726, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139784865966157726, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139784865966157726, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1139784865966157726, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
       propertyPath: m_FillAmount
       value: 0.4
       objectReference: {fileID: 0}
@@ -2796,6 +2813,22 @@ PrefabInstance:
     - target: {fileID: 7132190839452437126, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
       propertyPath: m_Name
       value: WaterSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132190839452437147, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 70a0218e7f028d247b128c27b9c6a134, type: 3}
+    - target: {fileID: 7132190839452437147, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132190839452437147, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7132190839452437147, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7132190839452437147, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
       propertyPath: m_FillAmount
