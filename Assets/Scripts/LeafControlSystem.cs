@@ -18,9 +18,9 @@ public class LeafControlSystem : MonoBehaviour
     [SerializeField] private Sprite dryLeafSprite;
 
     [Header("Movement Settings")]
-    [SerializeField] private float moveRange = 150f;
+    [SerializeField] private float moveRange = 50f;
     private float sunMoveSpeed;
-    [SerializeField] private float leafMoveSpeed = 200f;
+    [SerializeField] private float leafMoveSpeed = 150f;
 
     [Header("Leaf Settings")]
     [SerializeField] private Transform leafBar;
@@ -57,7 +57,7 @@ public class LeafControlSystem : MonoBehaviour
         }
 
         leafRenderer.sprite = shadeLeafSprite;
-        sunMoveSpeed = (moveRange * 2) / 15f;
+        sunMoveSpeed = (moveRange * 2) / 30f;
         
         StartCoroutine(CheckDryStatus());
     }
@@ -139,17 +139,17 @@ public class LeafControlSystem : MonoBehaviour
 
     private void MoveLeafBar()
     {
-        Debug.Log("moveleafbar called");
+        //Debug.Log("moveleafbar called");
         float moveInput = 0f;
         if (Input.GetKey(KeyCode.A))
         {
             moveInput = -1f;
-            Debug.Log("AAAAA");
+            //Debug.Log("AAAAA");
         }
         if (Input.GetKey(KeyCode.D))
         {
             moveInput = 1f;
-            Debug.Log("BBBBB");
+            //Debug.Log("BBBBB");
         }
 
         if (leafBar == null)
@@ -159,31 +159,38 @@ public class LeafControlSystem : MonoBehaviour
         }
 
         Vector3 position = leafBar.position;
-        position.x += moveInput * leafMoveSpeed * Time.deltaTime;
+        position.x += moveInput * leafMoveSpeed * Time.deltaTime * 0.5f;
         position.x = Mathf.Clamp(position.x, startX - moveRange, startX + moveRange);
 
         leafBar.position = position;
     }
 
     private void MoveSunBar()
+{
+    Vector3 position = sunBar.position;
+
+    if (isMovingRight)
     {
-        Vector3 position = sunBar.position;
-
-        if (isMovingRight)
+        position.x += sunMoveSpeed * Time.deltaTime;
+        if (position.x >= startX + moveRange)
         {
-            position.x += sunMoveSpeed * Time.deltaTime;
-            if (position.x >= startX + moveRange)
-                isMovingRight = false;
+            position.x = startX + moveRange; // Correct position if overshooting
+            isMovingRight = false;           // Change direction
         }
-        else
-        {
-            position.x -= sunMoveSpeed * Time.deltaTime;
-            if (position.x <= startX - moveRange)
-                isMovingRight = true;
-        }
-
-        sunBar.position = position;
     }
+    else
+    {
+        position.x -= sunMoveSpeed * Time.deltaTime;
+        if (position.x <= startX - moveRange)
+        {
+            position.x = startX - moveRange; // Correct position if overshooting
+            isMovingRight = true;            // Change direction
+        }
+    }
+
+    sunBar.position = position;
+}
+
 
     private void CheckSunlightStatus()
     {
@@ -220,7 +227,7 @@ public class LeafControlSystem : MonoBehaviour
 
     private IEnumerator CheckDryStatus()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(5f);
         
         if (!isInSunlight && leafRenderer.sprite == shadeLeafSprite)
         {
@@ -239,11 +246,17 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private IEnumerator DecreasePlantLife()
+{
+    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} started decreasing life");
+    
+    while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
     {
-        while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
-        {
-            GameManager.DecreaseLife(1);
-            yield return new WaitForSeconds(1f);
-        }
+        GameManager.DecreaseLife(3);
+        //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} decreased life by 3");
+        
+        yield return new WaitForSeconds(1f);
     }
+    
+    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} stopped decreasing life");
+}
 }
