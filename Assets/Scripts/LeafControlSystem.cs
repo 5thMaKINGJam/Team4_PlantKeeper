@@ -233,7 +233,7 @@ public class LeafControlSystem : MonoBehaviour
 
     private IEnumerator CheckDryStatus()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(6f);
         
         if (!isInSunlight && leafRenderer.sprite == shadeLeafSprite)
         {
@@ -257,7 +257,7 @@ public class LeafControlSystem : MonoBehaviour
     
     while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
     {
-        GameManager.DecreaseLife(3);
+        GameManager.DecreaseLife(2);
         //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} decreased life by 3");
         
         yield return new WaitForSeconds(1f);
