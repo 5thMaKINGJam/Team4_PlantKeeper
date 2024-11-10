@@ -186,9 +186,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6467622922091699230}
     m_Modifications:
+    - target: {fileID: 449831953301664809, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 159.1515
+      objectReference: {fileID: 0}
+    - target: {fileID: 449831953301664809, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 159.67575
+      objectReference: {fileID: 0}
+    - target: {fileID: 3252896032296880209, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5297405472060045498, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_text
       value: "\uBB3C "
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367500, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_Name
+      value: WaterSlider
       objectReference: {fileID: 0}
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.b
@@ -201,6 +217,10 @@ PrefabInstance:
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.r
       value: 0.60784316
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6934003511233372818, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Pivot.x
@@ -307,6 +327,10 @@ PrefabInstance:
     - target: {fileID: 5297405472060045498, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_text
       value: "\uC0DD\uBA85\uB825"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367500, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_Name
+      value: LifeSlider
       objectReference: {fileID: 0}
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.b
@@ -426,6 +450,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\uC131\uC7A5"
       objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367500, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_Name
+      value: GrowthSlider
+      objectReference: {fileID: 0}
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.b
       value: 0.30980393
@@ -540,9 +568,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6467622922091699230}
     m_Modifications:
+    - target: {fileID: 449831953301664809, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 159.2603
+      objectReference: {fileID: 0}
+    - target: {fileID: 449831953301664809, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0355
+      objectReference: {fileID: 0}
+    - target: {fileID: 3252896032296880209, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5297405472060045498, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_text
       value: "\uC601\uC591\uBD84"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367500, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_Name
+      value: VitaminSlider
       objectReference: {fileID: 0}
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.b
@@ -555,6 +599,10 @@ PrefabInstance:
     - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Color.r
       value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 6934003510759367505, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 6934003511233372818, guid: 36ad1db1c5fe44b929caa3c85d6e19b9, type: 3}
       propertyPath: m_Pivot.x
