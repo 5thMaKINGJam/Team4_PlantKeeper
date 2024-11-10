@@ -195,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 0e8752a00123b48d6ab1319c3b6643af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cbaf070a158e5443977542ab9cdcea5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -430,7 +430,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_UiScaleMode
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_ReferenceResolution.x
@@ -439,6 +443,10 @@ PrefabInstance:
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707067, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_Name
@@ -2312,7 +2320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_UiScaleMode
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_ReferenceResolution.x
@@ -2662,7 +2674,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1cbaf070a158e5443977542ab9cdcea5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e8752a00123b48d6ab1319c3b6643af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2922,7 +2934,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_UiScaleMode
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_ReferenceResolution.x
