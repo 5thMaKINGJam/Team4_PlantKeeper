@@ -34,7 +34,7 @@ public class BarState
         {
             value = maxValue;
         }
-        bar.fillAmount = 1 - ((float)value / maxValue);
+        bar.fillAmount = (float)value / maxValue;
         return value;
     }
 }
