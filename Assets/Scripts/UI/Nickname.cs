@@ -10,7 +10,7 @@ public class Nickname : MonoBehaviour
 
     private void Awake()
     {
-        
+        if (nickname != null) gameObject.SetActive(false);
     }
 
     private void Update()
