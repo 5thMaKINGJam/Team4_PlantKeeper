@@ -47,7 +47,7 @@ public class InsectSpawner : MonoBehaviour
         insect.transform.position = spawnPoint[index].position;
         isSpawn[index] = true;
         insect.GetComponent<Insect>().index = index;
-        insect.GetComponent<Insect>().insectSpawner = gameObject;
+        // insect.GetComponent<Insect>().insectSpawner = gameObject;
     }
     public GameObject Get()
     {
