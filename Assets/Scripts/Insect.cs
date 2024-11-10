@@ -83,14 +83,16 @@ public class Insect : MonoBehaviour
     void Die()
     {
         insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
-        gameObject.SetActive(false);
         GameManager.DecreaseLife(8);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     public void Kill()
     {
         insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

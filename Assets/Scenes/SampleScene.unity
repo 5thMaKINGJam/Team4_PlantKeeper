@@ -3129,6 +3129,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LifeSlider
       objectReference: {fileID: 0}
+    - target: {fileID: 2943070520187359340, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2943070521555823368, guid: 7731ca15fcb1946c9bd8b57415fa2eef, type: 3}
       propertyPath: m_Name
       value: GrowthSlider
