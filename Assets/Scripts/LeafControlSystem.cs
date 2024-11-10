@@ -115,6 +115,12 @@ public class LeafControlSystem : MonoBehaviour
         UpdateLeafState();
     }
 
+    private void OnDestroy()
+{
+    isAnyPanelActive = false; // 씬이 파괴될 때 초기화
+}
+
+
     private void ToggleControlPanel()
     {
         isControlActive = !isControlActive;
