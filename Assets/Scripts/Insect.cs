@@ -83,7 +83,7 @@ public class Insect : MonoBehaviour
     void Die()
     {
         // insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
-        GameManager.DecreaseLife(8);
+        GameManager.DecreaseLife(6);
         //gameObject.SetActive(false);
         Destroy(gameObject);
     }

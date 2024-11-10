@@ -18,7 +18,7 @@ public class InsectSpawner : MonoBehaviour
         pools= new List<GameObject>();
         spawnPoint = GetComponentsInChildren<Transform>();
         timer = 0;
-        nextSpawnTime = Random.Range(2.0f, 4.0f);
+        nextSpawnTime = Random.Range(3.0f, 4.0f);
         isSpawn = new bool[spawnPoint.Length];
         for(int i=0;i<isSpawn.Length;i++)
         {
@@ -32,7 +32,7 @@ public class InsectSpawner : MonoBehaviour
         {
             Spawn();
             timer= 0;
-            nextSpawnTime = Random.Range(2.0f, 4.0f);
+            nextSpawnTime = Random.Range(3.0f, 4.0f);
         }
     }
     private void Spawn()
