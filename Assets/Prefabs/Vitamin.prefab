@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4230767276914722710}
   - component: {fileID: 1102838419742638544}
   - component: {fileID: 793130039}
-  - component: {fileID: 4726368903981699943}
+  - component: {fileID: 3397212248958415455}
   m_Layer: 8
   m_Name: Vitamin
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4230767276914722711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.67, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -221,7 +221,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4726368903981699943
+--- !u!114 &3397212248958415455
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -230,7 +230,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4230767276914722711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068cbde73bb7144d0b247ec67c031d78, type: 3}
+  m_Script: {fileID: 11500000, guid: ebd90dacaaa604f60b2c6211b116fa35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amount: 4
+  itemType: 1
+  amount: 6
+  timeToDestroy: 3

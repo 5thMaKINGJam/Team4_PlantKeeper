@@ -15,7 +15,7 @@ public class Insect : MonoBehaviour
     public float basicLevelTime;
     public float firstLevelTime;
     public int index=0;
-    public GameObject insectSpawner;
+    // public GameObject insectSpawner;
 
     private void Awake()
     {
@@ -82,15 +82,17 @@ public class Insect : MonoBehaviour
 
     void Die()
     {
-        insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
-        gameObject.SetActive(false);
+        // insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
         GameManager.DecreaseLife(8);
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     public void Kill()
     {
-        insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
-        gameObject.SetActive(false);
+        // insectSpawner.GetComponent<InsectSpawner>().isSpawn[index] = false;
+        //gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
