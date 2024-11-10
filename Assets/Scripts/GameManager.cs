@@ -49,6 +49,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] int lifeDecreaseAmount;
     [SerializeField] int growthIncreaseAmount;
 
+    [Header("Time UI")]
+    [SerializeField] Text timeT;
+    private float t = 0;
+    public static int elapsedMilliseconds; //게임 진행 시간
+
 
     private void Awake()
     {
@@ -72,7 +77,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        t += Time.deltaTime; // 시간 누적
+        int minutes = (int)(t / 60);
+        int seconds = (int)(t % 60);
+        //timeT.text = $"{minutes:D2}:{seconds:D2}"; // "MM:SS" 형식으로 표시
     }
 
     public static void DecreaseLife(int x)
@@ -102,12 +110,21 @@ public class GameManager : MonoBehaviour
     {
         if (_instance.growth.GetValue() == maxGrowth)
         {
+            SaveGameData();
             SceneManager.LoadScene("GameClear");
         }
         if (_instance.life.GetValue() == 0)
         {
             SceneManager.LoadScene("GameOver");
         }
+    }
+    private void SaveGameData()
+    {
+        elapsedMilliseconds = (int)(t * 1000); // 밀리초 단위로 변환
+        // GameClear 씬에 데이터를 전달 (여기서는 PlayerPrefs 사용 예제)
+        //PlayerPrefs.SetInt("ElapsedTime", elapsedMilliseconds);
+        //PlayerPrefs.Save();
+        //Debug.Log(elapsedMilliseconds);
     }
 
     IEnumerator UpdateStateForEverySecond()
