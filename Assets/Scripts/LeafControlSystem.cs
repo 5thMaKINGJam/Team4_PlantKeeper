@@ -57,7 +57,7 @@ public class LeafControlSystem : MonoBehaviour
         }
 
         leafRenderer.sprite = shadeLeafSprite;
-        sunMoveSpeed = (moveRange * 2) / 30f;
+        sunMoveSpeed = (moveRange * 2) / 60f;
         
         StartCoroutine(CheckDryStatus());
     }
