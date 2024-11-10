@@ -1,109 +1,174 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
 
 public class LeafControlSystem : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject leafControlPanel;
-    [SerializeField] private RectTransform sunBar;
-    [SerializeField] private RectTransform leafBar;
-    
+    [SerializeField] private Transform sunBar;
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip panelToggleSound;
+
     [Header("Sprite References")]
-    [SerializeField] private SpriteRenderer leafRenderer;  // 실제 잎사귀의 SpriteRenderer
-    [SerializeField] private Sprite normalLeafSprite;     // 기본 상태
-    [SerializeField] private Sprite sunlightLeafSprite;   // 햇빛 상태
-    [SerializeField] private Sprite shadeLeafSprite;      // 그늘 상태
-    
+    [SerializeField] private SpriteRenderer leafRenderer;
+    [SerializeField] private Sprite shadeLeafSprite;
+    [SerializeField] private Sprite sunlightLeafSprite;
+    [SerializeField] private Sprite dryLeafSprite;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveRange = 150f;
     private float sunMoveSpeed;
     [SerializeField] private float leafMoveSpeed = 200f;
-    
-    // 상태 관리
+
+    [Header("Leaf Settings")]
+    [SerializeField] private Transform leafBar;
+
+    private static bool isAnyPanelActive = false;
     private bool isControlActive = false;
     private bool isMovingRight = true;
     private float startX;
-    
-    // 타이머
+
     private float sunlightTimer = 0f;
-    private float shadeTimer = 0f;
+    private float dryTimer = 0f;
     private bool isInSunlight = false;
     private bool isTimerActive = false;
-    
-    // 플레이어 참조
+
     private GameObject player1;
     private bool isPlayerInRange = false;
-    
+    private PlayerMove playerMove;
+
     private void Start()
     {
         leafControlPanel.SetActive(false);
-        startX = sunBar.anchoredPosition.x;
-        player1 = GameObject.FindGameObjectWithTag("Player1");
+        startX = sunBar.position.x;
+        player1 = GameObject.Find("player1");
+
+        playerMove = player1.GetComponent<PlayerMove>();
+        if (playerMove == null)
+        {
+            Debug.LogWarning("PlayerMove 스크립트를 찾을 수 없습니다.");
+        }
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        leafRenderer.sprite = shadeLeafSprite;
+        sunMoveSpeed = (moveRange * 2) / 15f;
         
-        // 초기 상태 설정
-        leafRenderer.sprite = normalLeafSprite;
-        
-        // 15초 동안 왕복하도록 속도 계산
-        sunMoveSpeed = (moveRange * 2) / 7.5f;
+        StartCoroutine(CheckDryStatus());
     }
-    
-    private void Update()
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        CheckPlayerRange();
-        
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.LeftShift))
+        if (other.gameObject.name == "player1")
         {
-            ToggleControl();
-        }
-        
-        if (isControlActive)
-        {
-            MoveSunBar();
-            MoveLeafBar();
-            CheckSunlightStatus();
-        }
-        
-        // 컨트롤 UI가 비활성화될 때 기본 상태로 복귀
-        if (!isControlActive && leafRenderer.sprite != normalLeafSprite)
-        {
-            leafRenderer.sprite = normalLeafSprite;
+            isPlayerInRange = true;
         }
     }
-    
-    private void CheckPlayerRange()
+
+    private void OnTriggerExit2D(Collider2D other)
     {
-        if (player1 != null)
+        if (other.gameObject.name == "player1")
         {
-            float distance = Vector2.Distance(transform.position, player1.transform.position);
-            isPlayerInRange = distance < 2f;
-            
-            // 플레이어가 범위를 벗어나면 컨트롤 비활성화
-            if (!isPlayerInRange && isControlActive)
+            isPlayerInRange = false;
+            if (isControlActive)
             {
-                ToggleControl();
+                ToggleControlPanel();
             }
         }
     }
-    
-    private void ToggleControl()
+
+    private void Update()
+    {
+        MoveSunBar();
+
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            ToggleControlPanel();
+        }
+
+        if (isAnyPanelActive)
+        {
+            if (playerMove != null)
+            {
+                playerMove.enabled = false;
+            }
+        }
+        else
+        {
+            if (playerMove != null)
+            {
+                playerMove.enabled = true;
+            }
+        }
+
+        if (isControlActive)
+        {
+            MoveLeafBar();
+        }
+
+        CheckSunlightStatus();
+        UpdateLeafState();
+    }
+
+    private void ToggleControlPanel()
     {
         isControlActive = !isControlActive;
+        isAnyPanelActive = isControlActive;
         leafControlPanel.SetActive(isControlActive);
-        
-        // 컨트롤이 활성화될 때는 현재 상태 유지
-        if (!isControlActive)
+
+        // 효과음 재생
+        if (audioSource != null && panelToggleSound != null)
         {
-            StopAllCoroutines();
-            isTimerActive = false;
-            leafRenderer.sprite = normalLeafSprite;
+            audioSource.PlayOneShot(panelToggleSound);
+        }
+
+        if (isControlActive)
+        {
+            RectTransform panelRect = leafControlPanel.GetComponent<RectTransform>();
+            if (panelRect != null)
+            {
+                panelRect.anchoredPosition = Vector2.zero;
+            }
         }
     }
-    
+
+    private void MoveLeafBar()
+    {
+        Debug.Log("moveleafbar called");
+        float moveInput = 0f;
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveInput = -1f;
+            Debug.Log("AAAAA");
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            moveInput = 1f;
+            Debug.Log("BBBBB");
+        }
+
+        if (leafBar == null)
+        {
+            Debug.LogError("leafBar가 null입니다. 인스펙터에서 설정해 주세요.");
+            return;
+        }
+
+        Vector3 position = leafBar.position;
+        position.x += moveInput * leafMoveSpeed * Time.deltaTime;
+        position.x = Mathf.Clamp(position.x, startX - moveRange, startX + moveRange);
+
+        leafBar.position = position;
+    }
+
     private void MoveSunBar()
     {
-        Vector2 position = sunBar.anchoredPosition;
-        
+        Vector3 position = sunBar.position;
+
         if (isMovingRight)
         {
             position.x += sunMoveSpeed * Time.deltaTime;
@@ -116,84 +181,68 @@ public class LeafControlSystem : MonoBehaviour
             if (position.x <= startX - moveRange)
                 isMovingRight = true;
         }
-        
-        sunBar.anchoredPosition = position;
+
+        sunBar.position = position;
     }
-    
-    private void MoveLeafBar()
-    {
-        float moveInput = 0f;
-        if (Input.GetKey(KeyCode.A)) moveInput = -1f;
-        if (Input.GetKey(KeyCode.D)) moveInput = 1f;
-        
-        Vector2 position = leafBar.anchoredPosition;
-        position.x += moveInput * leafMoveSpeed * Time.deltaTime;
-        position.x = Mathf.Clamp(position.x, startX - moveRange, startX + moveRange);
-        
-        leafBar.anchoredPosition = position;
-    }
-    
+
     private void CheckSunlightStatus()
     {
-        float distance = Mathf.Abs(leafBar.anchoredPosition.x - sunBar.anchoredPosition.x);
+        if (leafBar == null)
+        {
+            Debug.LogError("leafBar가 null입니다.");
+            return;
+        }
+
+        float distance = Mathf.Abs(leafBar.position.x - sunBar.position.x);
         bool currentlyInSunlight = distance < 30f;
-        
+
         if (currentlyInSunlight != isInSunlight)
         {
             isInSunlight = currentlyInSunlight;
             
-            // 상태에 따른 스프라이트 변경
-            leafRenderer.sprite = isInSunlight ? sunlightLeafSprite : shadeLeafSprite;
-            
-            // 타이머 리셋
-            sunlightTimer = 0f;
-            shadeTimer = 0f;
-            
-            if (isTimerActive)
+            StopAllCoroutines();
+            if (isInSunlight)
             {
-                StopAllCoroutines();
-                isTimerActive = false;
-            }
-        }
-        
-        // 햇빛 상태 타이머
-        if (isInSunlight)
-        {
-            sunlightTimer += Time.deltaTime;
-            if (sunlightTimer >= 2f && !isTimerActive)
-            {
+                leafRenderer.sprite = sunlightLeafSprite;
                 StartCoroutine(IncreasePlantGrowth());
-                isTimerActive = true;
             }
-        }
-        // 그늘 상태 타이머
-        else
-        {
-            shadeTimer += Time.deltaTime;
-            if (shadeTimer >= 4f && !isTimerActive)
+            else
             {
-                StartCoroutine(DecreasePlantLife());
-                isTimerActive = true;
+                leafRenderer.sprite = shadeLeafSprite;
+                StartCoroutine(CheckDryStatus());
             }
         }
     }
-    
+
+    private void UpdateLeafState()
+    {
+    }
+
+    private IEnumerator CheckDryStatus()
+    {
+        yield return new WaitForSeconds(4f);
+        
+        if (!isInSunlight && leafRenderer.sprite == shadeLeafSprite)
+        {
+            leafRenderer.sprite = dryLeafSprite;
+            StartCoroutine(DecreasePlantLife());
+        }
+    }
+
     private IEnumerator IncreasePlantGrowth()
     {
         while (isInSunlight)
         {
-            // TODO: GameManager의 성장 증가 함수 호출
-            // GameManager.Instance.increaseGrowth(1);
+            GameManager.IncreaseGrowth(1);
             yield return new WaitForSeconds(1f);
         }
     }
-    
+
     private IEnumerator DecreasePlantLife()
     {
-        while (!isInSunlight)
+        while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
         {
-            // TODO: GameManager의 생명력 감소 함수 호출
-            // GameManager.Instance.decreaseLife(3);
+            GameManager.DecreaseLife(1);
             yield return new WaitForSeconds(1f);
         }
     }
