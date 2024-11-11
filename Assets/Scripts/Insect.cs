@@ -70,7 +70,7 @@ public class Insect : MonoBehaviour
             Die();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightShift) && isKill && insectLevel != 2)
+        if (Input.GetKeyDown(KeyCode.Return) && isKill && insectLevel != 2)
         {
             audioPlayer.clip = clips[2];
             audioPlayer.loop = false;
