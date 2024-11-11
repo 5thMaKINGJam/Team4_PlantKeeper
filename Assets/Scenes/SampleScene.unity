@@ -195,7 +195,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1cbaf070a158e5443977542ab9cdcea5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e8752a00123b48d6ab1319c3b6643af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -408,46 +408,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8980585170861598770, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171565786678, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171565786678, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171565786678, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171565786678, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 8980585171735707065, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_ReferencePixelsPerUnit
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707067, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_Name
       value: LeafPanel1
@@ -456,10 +416,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 8980585171735707070, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8980585171735707071, guid: 11cb502542d6e2a44a8a8c1d1c93f430, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2674,7 +2630,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 0e8752a00123b48d6ab1319c3b6643af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cbaf070a158e5443977542ab9cdcea5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4460,6 +4416,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player1
       objectReference: {fileID: 0}
+    - target: {fileID: 7731732438777847334, guid: 0c3d79901187e4cfc8d0b33fd151dab0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1cbaf070a158e5443977542ab9cdcea5, type: 3}
     - target: {fileID: 7731732438777847337, guid: 0c3d79901187e4cfc8d0b33fd151dab0, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -4557,6 +4517,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7816981224981808564, guid: a3c3d92d3c6dc44ca9f1c6c8acff44ee, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0e8752a00123b48d6ab1319c3b6643af, type: 3}
     - target: {fileID: 7816981224981808567, guid: a3c3d92d3c6dc44ca9f1c6c8acff44ee, type: 3}
       propertyPath: m_Name
       value: player2
