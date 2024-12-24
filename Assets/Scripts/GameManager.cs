@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         if (_instance.growth.GetValue() == maxGrowth)
         {
             isEnded = true;
-            await RealtimeDB.InsertNewData(new Ranking(Nickname.nickname, (int)(t * 1000)));
+            await FirebaseService.InsertNewData(new Ranking(Nickname.nickname, (int)(t * 1000)));
             SceneManager.LoadScene("GameClear");
         }
         if (_instance.life.GetValue() == 0)

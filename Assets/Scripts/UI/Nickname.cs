@@ -15,15 +15,16 @@ public class Nickname : MonoBehaviour
 
     private void Update()
     {
-        nickname=nicknameInput.text;
+        nickname = nicknameInput.text;
     }
 
-    //¸¶¿ì½º
-    public void InputName()
+    //ï¿½ï¿½ï¿½ì½º
+    public async void InputName()
     {
-        if (nickname != null&&nickname.Length>0)
+        if (nickname != null && nickname.Length > 0)
         {
             gameObject.SetActive(false);
+            await FirebaseService.AnonymousLogin();
         }
     }
 }

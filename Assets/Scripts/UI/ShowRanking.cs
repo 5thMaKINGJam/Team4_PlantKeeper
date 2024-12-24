@@ -20,7 +20,7 @@ public class ShowRanking : MonoBehaviour
 
     async void DisplayRank()
     {
-        List<Ranking> result = await RealtimeDB.FetchTopRanking(SIZE);
+        List<Ranking> result = await FirebaseService.FetchTopRanking(SIZE);
         result.Sort();
 
         for (int i = 0; i < result.Count; i++)
