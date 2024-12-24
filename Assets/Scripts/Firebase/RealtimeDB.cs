@@ -7,16 +7,20 @@ using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System.Text;
 
-public static class RealtimeDB
+public class RealtimeDB
 {
-    private static string url = "https://plantkeeper-202411-default-rtdb.asia-southeast1.firebasedatabase.app/rankings.json";
+    private static string url = $"https://plantkeeper-202411-default-rtdb.asia-southeast1.firebasedatabase.app/PlantKeeper";
 
+    private static string GetURI()
+    {
+        return $"{url}/{GameManager.GetVersion()}/ranking.json";
+    }
 
     public static async Task InsertNewData(Ranking data)
     {
         try
         {
-            UnityWebRequest request = new UnityWebRequest(url, "POST");
+            UnityWebRequest request = new UnityWebRequest(GetURI(), "POST");
             byte[] bodyRaw = Encoding.UTF8.GetBytes(data.ToJson());
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
@@ -34,7 +38,7 @@ public static class RealtimeDB
     {
         try
         {
-            UnityWebRequest request = UnityWebRequest.Get($"{url}?orderBy=\"time\"&limitToFirst={size}");
+            UnityWebRequest request = UnityWebRequest.Get($"{GetURI()}?orderBy=\"time\"&limitToFirst={size}");
             UnityWebRequest response = await UnityWebRequestAsync.SendWebRequestAsync(request);
             var result = JsonConvert.DeserializeObject<Dictionary<string, Ranking>>(response.downloadHandler.text);
             return new List<Ranking>(result.Values);

@@ -1607,6 +1607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92e737ecf55541e4b3debee0dbe02ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rankingVersion: version1
   lifeBar: {fileID: 1984848412}
   growthBar: {fileID: 1984848411}
   waterBar: {fileID: 1984848410}
@@ -1625,7 +1626,6 @@ MonoBehaviour:
   vitaminMaxBound: 60
   lifeDecreaseAmount: 1
   growthIncreaseAmount: 1
-  timeT: {fileID: 0}
 --- !u!4 &637830731
 Transform:
   m_ObjectHideFlags: 0

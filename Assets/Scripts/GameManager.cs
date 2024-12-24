@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance = null;
 
     private AudioSource lifeDecreasingSound;
+    [Header("Ranking Version")]
+    [SerializeField] string rankingVersion;
 
     [Header("Bar > Background > Slider")]
     [SerializeField] Image lifeBar; // bar prefab 내 Cover
@@ -160,5 +162,10 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public static string GetVersion()
+    {
+        return _instance.rankingVersion;
     }
 }
