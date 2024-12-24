@@ -476,7 +476,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 896025006}
         m_TargetAssemblyTypeName: Nickname, Assembly-CSharp
-        m_MethodName: InputName
+        m_MethodName: ConfirmNickName
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
