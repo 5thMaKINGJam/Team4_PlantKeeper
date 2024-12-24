@@ -30,10 +30,10 @@ public class LeafControlSystem : MonoBehaviour
     private bool isMovingRight = true;
     private float startX;
 
-    private float sunlightTimer = 0f;
-    private float dryTimer = 0f;
+    // private float sunlightTimer = 0f;
+    // private float dryTimer = 0f;
     private bool isInSunlight = false;
-    private bool isTimerActive = false;
+    // private bool isTimerActive = false;
 
     private GameObject player1;
     private bool isPlayerInRange = false;
@@ -58,7 +58,7 @@ public class LeafControlSystem : MonoBehaviour
 
         leafRenderer.sprite = shadeLeafSprite;
         sunMoveSpeed = (moveRange * 2) / 60f;
-        
+
         StartCoroutine(CheckDryStatus());
     }
 
@@ -116,9 +116,9 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private void OnDestroy()
-{
-    isAnyPanelActive = false; // 씬이 파괴될 때 초기화
-}
+    {
+        isAnyPanelActive = false; // 씬이 파괴될 때 초기화
+    }
 
 
     private void ToggleControlPanel()
@@ -172,30 +172,30 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private void MoveSunBar()
-{
-    Vector3 position = sunBar.position;
-
-    if (isMovingRight)
     {
-        position.x += sunMoveSpeed * Time.deltaTime;
-        if (position.x >= startX + moveRange)
-        {
-            position.x = startX + moveRange; // Correct position if overshooting
-            isMovingRight = false;           // Change direction
-        }
-    }
-    else
-    {
-        position.x -= sunMoveSpeed * Time.deltaTime;
-        if (position.x <= startX - moveRange)
-        {
-            position.x = startX - moveRange; // Correct position if overshooting
-            isMovingRight = true;            // Change direction
-        }
-    }
+        Vector3 position = sunBar.position;
 
-    sunBar.position = position;
-}
+        if (isMovingRight)
+        {
+            position.x += sunMoveSpeed * Time.deltaTime;
+            if (position.x >= startX + moveRange)
+            {
+                position.x = startX + moveRange; // Correct position if overshooting
+                isMovingRight = false;           // Change direction
+            }
+        }
+        else
+        {
+            position.x -= sunMoveSpeed * Time.deltaTime;
+            if (position.x <= startX - moveRange)
+            {
+                position.x = startX - moveRange; // Correct position if overshooting
+                isMovingRight = true;            // Change direction
+            }
+        }
+
+        sunBar.position = position;
+    }
 
 
     private void CheckSunlightStatus()
@@ -212,7 +212,7 @@ public class LeafControlSystem : MonoBehaviour
         if (currentlyInSunlight != isInSunlight)
         {
             isInSunlight = currentlyInSunlight;
-            
+
             StopAllCoroutines();
             if (isInSunlight)
             {
@@ -234,7 +234,7 @@ public class LeafControlSystem : MonoBehaviour
     private IEnumerator CheckDryStatus()
     {
         yield return new WaitForSeconds(6f);
-        
+
         if (!isInSunlight && leafRenderer.sprite == shadeLeafSprite)
         {
             leafRenderer.sprite = dryLeafSprite;
@@ -252,17 +252,17 @@ public class LeafControlSystem : MonoBehaviour
     }
 
     private IEnumerator DecreasePlantLife()
-{
-    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} started decreasing life");
-    
-    while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
     {
-        GameManager.DecreaseLife(2);
-        //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} decreased life by 3");
-        
-        yield return new WaitForSeconds(1f);
+        //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} started decreasing life");
+
+        while (!isInSunlight && leafRenderer.sprite == dryLeafSprite)
+        {
+            GameManager.DecreaseLife(2);
+            //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} decreased life by 3");
+
+            yield return new WaitForSeconds(1f);
+        }
+
+        //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} stopped decreasing life");
     }
-    
-    //Debug.Log($"[LeafControl] Dry Leaf at {transform.position} stopped decreasing life");
-}
 }

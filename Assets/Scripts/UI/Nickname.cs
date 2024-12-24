@@ -1,29 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Nickname : MonoBehaviour
 {
-    public InputField nicknameInput;
+    public TMP_InputField nicknameInput;
     public static string nickname = null;
+    [SerializeField]
+    private TMP_Text warningText;
 
     private void Awake()
     {
         if (nickname != null) gameObject.SetActive(false);
+        else
+        {
+            var randomNumber = $"{Random.Range(1, 1000)}".PadLeft(3, '0');
+            nicknameInput.text = $"ìµëª…{randomNumber}";
+        }
     }
 
     private void Update()
     {
-        nickname=nicknameInput.text;
+        if (nicknameInput.text.Length > 5)
+        {
+            nicknameInput.text = nicknameInput.text.Substring(0, 5);
+            warningText.color = Color.red;
+        }
+        nickname = nicknameInput.text;
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            ConfirmNickName();
+        }
     }
 
-    //¸¶¿ì½º
-    public void InputName()
+    //ï¿½ï¿½ï¿½ì½º
+    public async void ConfirmNickName()
     {
-        if (nickname != null&&nickname.Length>0)
+        if (nickname != null && nickname.Length > 0)
         {
             gameObject.SetActive(false);
+            await FirebaseService.AnonymousLogin();
         }
     }
 }

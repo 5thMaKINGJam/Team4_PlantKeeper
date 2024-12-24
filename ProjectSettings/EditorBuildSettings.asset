@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/yunji.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Play.unity
     guid: e8598d7361644854d959bde1c9653ff5
   m_configObjects: {}

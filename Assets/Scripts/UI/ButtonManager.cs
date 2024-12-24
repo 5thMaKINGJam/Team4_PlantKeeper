@@ -36,8 +36,7 @@ public class ButtonManager : MonoBehaviour
 
     public static void StartGame()
     {
-        Debug.Log("start");
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Play");
     }
 
     public static void ReturnToTitle()
@@ -55,6 +54,6 @@ public class ButtonManager : MonoBehaviour
     public void ChangeButtonOff()
     {
         transform.localScale = Vector3.one;
-        child.localScale=Vector3.one;
+        child.localScale = Vector3.one;
     }
 }
