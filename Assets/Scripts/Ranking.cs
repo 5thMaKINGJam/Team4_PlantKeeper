@@ -29,6 +29,7 @@ public static class DateTimeConverter
 [System.Serializable]
 public class Ranking : IComparable<Ranking>
 {
+    public string _id;
     public string name;
     public int time;
     public DateTime createdAt;

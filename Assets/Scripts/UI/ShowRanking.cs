@@ -1,21 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowRanking : MonoBehaviour
 {
     static int SIZE = 10;
-    public Text[] rankText;
+    private GameObject[] ranks;
+    private GameObject highlight;
 
     private void Awake()
     {
-        for (int i = 0; i < SIZE; i++)
-        {
-            rankText[i].text = CenterAlign("-", 19);
-        }
-
         DisplayRank();
+        highlight = transform.GetChild(0).gameObject;
     }
 
     async void DisplayRank()
@@ -25,30 +23,17 @@ public class ShowRanking : MonoBehaviour
 
         for (int i = 0; i < result.Count; i++)
         {
-            rankText[i].text = $"{i + 1:D2}위 {CenterAlign(result[i].name, 5)} {ConvertMillisecondsToTimeFormat(result[i].time)}";
+            var target = transform.GetChild(i + 1);
+            target.GetChild(1).GetComponent<TMP_Text>().text = result[i].name;
+            target.GetChild(2).GetComponent<TMP_Text>().text = ConvertMillisecondsToTimeFormat(result[i].time);
+            if (result[i]._id == GameManager.GetRecordId())
+            {
+                var pos = highlight.transform.position;
+                pos.y = target.transform.position.y;
+                highlight.transform.position = pos;
+                highlight.SetActive(true);
+            }
         }
-
-        for (int i = result.Count; i < SIZE; i++)
-        {
-            rankText[i].text = CenterAlign("-", 19);
-        }
-    }
-
-    public static string CenterAlign(string input, int length)
-    {
-        // 입력 문자열이 5자 이상이면 그대로 반환
-        if (input.Length >= length)
-        {
-            return input;
-        }
-
-        // 남는 공간을 양쪽에 균등하게 나누어 가운데 정렬
-        int totalPadding = length - input.Length;
-        int leftPadding = totalPadding / 2;
-        int rightPadding = totalPadding - leftPadding;
-
-        // PadLeft와 PadRight로 가운데 정렬
-        return input.PadLeft(input.Length + leftPadding).PadRight(length);
     }
 
     public void CloseUI()

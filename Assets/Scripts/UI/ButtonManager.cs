@@ -36,7 +36,6 @@ public class ButtonManager : MonoBehaviour
 
     public static void StartGame()
     {
-        Debug.Log("start");
         SceneManager.LoadScene("Play");
     }
 

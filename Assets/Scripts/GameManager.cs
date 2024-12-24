@@ -51,9 +51,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int lifeDecreaseAmount;
     [SerializeField] int growthIncreaseAmount;
 
-    // [Header("Time UI")]
-    // [SerializeField] Text timeT;
     private float t = 0;
+    private string recordId;
 
     private bool isEnded = false;
 
@@ -122,7 +121,7 @@ public class GameManager : MonoBehaviour
         if (_instance.growth.GetValue() == maxGrowth)
         {
             isEnded = true;
-            await FirebaseService.InsertNewData(new Ranking(Nickname.nickname, (int)(t * 1000)));
+            _instance.recordId = await FirebaseService.InsertNewData(new Ranking(Nickname.nickname, (int)(t * 1000)));
             SceneManager.LoadScene("GameClear");
         }
         if (_instance.life.GetValue() == 0)
@@ -167,5 +166,10 @@ public class GameManager : MonoBehaviour
     public static string GetVersion()
     {
         return _instance.rankingVersion;
+    }
+
+    public static string GetRecordId()
+    {
+        return _instance.recordId;
     }
 }

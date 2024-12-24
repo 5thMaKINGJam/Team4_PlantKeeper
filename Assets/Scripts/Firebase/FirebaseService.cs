@@ -37,7 +37,7 @@ public class FirebaseService
         return $"{DB_URL}/{GameManager.GetVersion()}/ranking.json?auth={userToken}";
     }
 
-    public static async Task InsertNewData(Ranking data)
+    public static async Task<string> InsertNewData(Ranking data)
     {
         if (userToken == null)
         {
@@ -52,10 +52,15 @@ public class FirebaseService
 
             request.SetRequestHeader("Content-Type", "application/json");
             UnityWebRequest response = await UnityWebRequestAsync.SendWebRequestAsync(request);
+            var recordId = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.downloadHandler.text)["name"];
+
+            request.Dispose();
+            return recordId;
         }
         catch (UnityWebRequestAsync.UnityWebRequestException ex)
         {
             Debug.LogError("Error: " + ex.Message);
+            return null;
         }
     }
 
@@ -71,7 +76,16 @@ public class FirebaseService
             UnityWebRequest request = UnityWebRequest.Get($"{GetURI()}&orderBy=\"time\"&limitToFirst={size}");
             UnityWebRequest response = await UnityWebRequestAsync.SendWebRequestAsync(request);
             var result = JsonConvert.DeserializeObject<Dictionary<string, Ranking>>(response.downloadHandler.text);
-            return new List<Ranking>(result.Values);
+            request.Dispose();
+
+            List<Ranking> ranking = new();
+            foreach (var rank in result)
+            {
+                rank.Value._id = rank.Key;
+                ranking.Add(rank.Value);
+            }
+
+            return ranking;
         }
         catch (UnityWebRequestAsync.UnityWebRequestException ex)
         {
@@ -89,13 +103,15 @@ public class FirebaseService
         try
         {
             UnityWebRequest request = new UnityWebRequest($"{AUTH_URL}{API_KEY}", "POST");
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(new { returnSecureToken = true }));
+            var body = new { returnSecureToken = true };
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonUtility.ToJson(body));
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
-
             request.SetRequestHeader("Content-Type", "application/json");
             UnityWebRequest response = await UnityWebRequestAsync.SendWebRequestAsync(request);
+
             userToken = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.downloadHandler.text)["idToken"];
+            request.Dispose();
         }
         catch (UnityWebRequestAsync.UnityWebRequestException ex)
         {

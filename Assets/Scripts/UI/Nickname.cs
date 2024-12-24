@@ -9,7 +9,7 @@ public class Nickname : MonoBehaviour
     public TMP_InputField nicknameInput;
     public static string nickname = null;
     [SerializeField]
-    private GameObject warningText;
+    private TMP_Text warningText;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class Nickname : MonoBehaviour
         if (nicknameInput.text.Length > 5)
         {
             nicknameInput.text = nicknameInput.text.Substring(0, 5);
-            warningText.SetActive(true);
+            warningText.color = Color.red;
         }
         nickname = nicknameInput.text;
 
