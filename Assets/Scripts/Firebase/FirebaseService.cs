@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -15,21 +14,26 @@ public class FirebaseService
     private static string DB_URL;
     private static string userToken;
 
-    private static void Initialize()
+    private static async Task Initialize()
     {
-        string filePath = Path.Combine(Application.dataPath, ".env.json");
-
+        string filePath = Path.Combine(Application.streamingAssetsPath, "env.json");
+        Dictionary<string, string> ENVIRONMENT;
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
-            Dictionary<string, string> ENVIRONMENT = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            API_KEY = ENVIRONMENT["API_KEY"];
-            DB_URL = ENVIRONMENT["DB_URL"];
+            ENVIRONMENT = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
         }
         else
         {
-            Debug.LogError("File not found: " + filePath);
+            Debug.Log("File not found: " + filePath);
+            UnityWebRequest request = UnityWebRequest.Get(filePath);
+
+            UnityWebRequest response = await UnityWebRequestAsync.SendWebRequestAsync(request);
+            ENVIRONMENT = JsonConvert.DeserializeObject<Dictionary<string, string>>(response.downloadHandler.text);
+            request.Dispose();
         }
+        API_KEY = ENVIRONMENT["API_KEY"];
+        DB_URL = ENVIRONMENT["DB_URL"];
     }
 
     private static string GetURI()
@@ -68,7 +72,7 @@ public class FirebaseService
     {
         if (API_KEY == null)
         {
-            Initialize();
+            await Initialize();
         }
 
         try
@@ -98,7 +102,7 @@ public class FirebaseService
     {
         if (API_KEY == null)
         {
-            Initialize();
+            await Initialize();
         }
         try
         {
