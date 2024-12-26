@@ -1614,7 +1614,7 @@ MonoBehaviour:
   vitaminBar: {fileID: 1984848409}
   maxLife: 100
   initial_life: 100
-  maxGrowth: 500
+  maxGrowth: 300
   initialGrowth: 0
   maxWater: 100
   initialWater: 70
